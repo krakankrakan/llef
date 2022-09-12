@@ -1,5 +1,6 @@
-# LLEF: LLDB Enhanced Features
-This script aims to make the use of LLDB easier and much more convenient. Like e.g. [`gdb-gef`](https://github.com/hugsy/gef), this script shows the register contents and the stack whenever execution stops.
+# LLEF: "GDB Enhanced Features"-like, but for LLDB
+This script aims to make the use of LLDB easier and much more convenient. Like e.g. [`gdb-gef`](https://github.com/hugsy/gef), this script shows the register contents and the stack whenever execution stops. 
+Currently, only Aarch64 is supported, but other architectures will follow.
 
 ![](img/screenshot.png "")
 

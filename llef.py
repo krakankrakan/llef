@@ -44,7 +44,7 @@ def dereference_memory(mem_addr, str, depth=0):
                     if len(s) > 0:
                         str += " | " +  s
             except:
-                return True, ""
+                return True, str
         else:
             str += m
     else:
@@ -112,7 +112,7 @@ def print_stack_trace(sp):
     return str
 
 def __lldb_init_module(debugger, internal_dict):
-    print("Init lldb-gef...")
+    print("Init llef...")
 
     res = lldb.SBCommandReturnObject()
     ci = debugger.GetCommandInterpreter()
@@ -121,9 +121,9 @@ def __lldb_init_module(debugger, internal_dict):
     ci.HandleCommand("settings set target.x86-disassembly-flavor intel", res)
 
     # Register the stop handler
-    ci.HandleCommand("command script add -f gef.HandleHookStopOnTarget HandleHookStopOnTarget", res)
-    ci.HandleCommand("command script add -f gef.HandleHookStopOnTarget ctx", res)
-    ci.HandleCommand("command script add -f gef.HandleHookStopOnTarget context", res)
+    ci.HandleCommand("command script add -f llef.HandleHookStopOnTarget HandleHookStopOnTarget", res)
+    ci.HandleCommand("command script add -f llef.HandleHookStopOnTarget ctx", res)
+    ci.HandleCommand("command script add -f llef.HandleHookStopOnTarget context", res)
     ci.HandleCommand("target stop-hook add -o \"HandleHookStopOnTarget\"", res)
 
     # Breakpoint on main()
