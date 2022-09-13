@@ -27,6 +27,11 @@ def dereference_memory(mem_addr, str, depth=0):
     if depth == 8:
         return True, ""
 
+    # Print the symbol name
+    symbol_name = lldb.SBAddress(mem_addr, lldb.debugger.GetSelectedTarget()).GetSymbol().GetName()
+    if symbol_name is not None:
+        str +=  COLORS["GREEN"] +  " (@ " + symbol_name + ")" + COLORS["RESET"]
+
     error = lldb.SBError()
     mem = lldb.debugger.GetSelectedTarget().GetProcess().ReadMemory(mem_addr, 8, error)
 
@@ -106,7 +111,7 @@ def print_stack_trace(sp):
     str = COLORS["RESET"] + "-----------------------------------------------------------------------------------------------------------------------[stack]\n"
 
     for i in range(0, 8):
-        s = sp - i * 8
+        s = sp + i * 8
         str += COLORS["GREEN"] + hex(s) + ": " + COLORS["RED"] + dereference_memory(s, "")[1][4:] + "\n"
 
     return str
